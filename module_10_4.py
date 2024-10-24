@@ -20,8 +20,6 @@ class Guest(Thread):
 
 class Cafe():
 
-    list_thread = []
-
     def __init__(self, *tables):
         self.queue = Queue()
         self.tables = list(tables)
@@ -33,7 +31,6 @@ class Cafe():
                 if tb.guest is None:
                     tb.guest = gs
                     tb.guest.start()
-                    self.list_thread.append(tb.guest)
                     print(f'{gs.name} сел(-а) за стол номер {tb.number}')
                     free_tb = False
                     break
@@ -53,7 +50,6 @@ class Cafe():
                         tb.guest = self.queue.get()
                         print(f'{tb.guest.name} вышел(-ла) из очереди и сел(-а) за стол номер {tb.number}')
                         tb.guest.start()
-                        self.list_thread.append(tb.guest)
 
 # Создание столов
 tables = [Table(number) for number in range(1, 6)]
